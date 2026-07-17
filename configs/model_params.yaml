@@ -1,0 +1,11 @@
+logistic_regression: {}
+
+decision_tree: {}
+
+random_forest: {}
+
+xgboost: {}
+
+lightgbm: {}
+
+catboost: {}

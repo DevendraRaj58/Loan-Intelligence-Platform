@@ -1,0 +1,27 @@
+project:
+  name: Loan Intelligence Platform
+  version: 1.0.0
+  author: Devendra Rajpurohit
+
+data:
+  raw_path: data/raw
+  interim_path: data/interim
+  processed_path: data/processed
+  feature_store_path: data/feature_store
+  test_size: 0.20
+  random_state: 42
+
+models:
+  save_dir: models
+  default_model: logistic_regression
+
+reports:
+  figures_dir: reports/figures
+
+artifacts:
+  path: artifacts
+
+logging:
+  log_dir: logs
+  log_file: loan_platform.log
+  level: INFO
