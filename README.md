@@ -1,29 +1,6 @@
 # Loan Intelligence Platform
 
-## Overview
+An end-to-end AI-powered Loan Decision Intelligence Platform built using Machine Learning, Explainable AI, FastAPI, Streamlit, Power BI, and LLMs.
 
-## Business Problem
-
-## Architecture
-
-## Features
-
-## Tech Stack
-
-## Folder Structure
-
-## Installation
-
-## Usage
-
-## Model Performance
-
-## Explainability
-
-## API
-
-## Dashboard
-
-## Future Scope
-
-## Author
+Project Status:
+🚧 Under Development
