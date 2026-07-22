@@ -3,9 +3,9 @@ Feature engineering for bureau.csv
 """
 
 import pandas as pd
-
+import numpy as np
 from src.feature_engineering.base_feature_engineer import BaseFeatureEngineer
-
+from src.utils.aggregation import Aggregation
 
 class BureauFeatureEngineer(BaseFeatureEngineer):
 
@@ -38,19 +38,21 @@ class BureauFeatureEngineer(BaseFeatureEngineer):
             }
         )
 
-        total_debt = (
-        bureau
-        .groupby("SK_ID_CURR")["AMT_CREDIT_SUM_DEBT"]
-        .sum()
-        .reset_index(name="TOTAL_OUTSTANDING_DEBT")
+        total_debt = Aggregation.aggregate(
+        bureau,
+        "SK_ID_CURR",
+        "AMT_CREDIT_SUM_DEBT",
+        "sum",
+        "TOTAL_OUTSTANDING_DEBT"
         )
 
-        total_credit = (
-            bureau
-            .groupby("SK_ID_CURR")["AMT_CREDIT_SUM"]
-            .sum()
-            .reset_index(name="TOTAL_CREDIT_AMOUNT")
-            )
+        total_credit = Aggregation.aggregate(
+        bureau,
+        "SK_ID_CURR",
+        "AMT_CREDIT_SUM",
+        "sum",
+        "TOTAL_CREDIT_AMOUNT"
+        )
 
         features = self.merge_feature(
                 features,
@@ -72,5 +74,101 @@ class BureauFeatureEngineer(BaseFeatureEngineer):
         features,
         loan_count
         )
+        
+        features["DEBT_TO_CREDIT_RATIO"] = (
+        features["TOTAL_OUTSTANDING_DEBT"] /
+        features["TOTAL_CREDIT_AMOUNT"]
+        ).replace(
+        [np.inf,-np.inf],0
+        ).fillna(0)
+
+        average_credit = Aggregation.aggregate(
+        df=bureau,
+        groupby_col="SK_ID_CURR",
+        target_col="AMT_CREDIT_SUM",
+        agg_func="mean",
+        feature_name="AVERAGE_CREDIT_AMOUNT"
+        )
+
+        features = self.merge_feature(
+        features,
+        average_credit
+        )
+
+
+        max_credit = Aggregation.aggregate(
+        bureau,
+        "SK_ID_CURR",
+        "AMT_CREDIT_SUM",
+        "max",
+        "MAXIMUM_CREDIT_AMOUNT"
+        )
+    
+        features = self.merge_feature(
+            features,
+            max_credit
+        )
+
+        minimum_credit = Aggregation.aggregate(
+        bureau,
+        "SK_ID_CURR",
+        "AMT_CREDIT_SUM",
+        "min",
+        "MINIMUM_CREDIT_AMOUNT"
+        )
+
+        features = self.merge_feature(
+            features,
+            minimum_credit
+        )
+
+
+        total_overdue = Aggregation.aggregate(
+        df=bureau,
+        groupby_col="SK_ID_CURR",
+        target_col="AMT_CREDIT_SUM_OVERDUE",
+        agg_func="sum",
+        feature_name="TOTAL_OVERDUE_AMOUNT"
+        )
+
+        features = self.merge_feature(
+            features,
+            total_overdue
+        )
+
+        average_overdue = Aggregation.aggregate(
+        df=bureau,
+        groupby_col="SK_ID_CURR",
+        target_col="AMT_CREDIT_SUM_OVERDUE",
+        agg_func="mean",
+        feature_name="AVERAGE_OVERDUE_AMOUNT"
+        )
+
+        features = self.merge_feature(
+            features,
+            average_overdue
+        )
+
+        maximum_overdue = Aggregation.aggregate(
+        df=bureau,
+        groupby_col="SK_ID_CURR",
+        target_col="AMT_CREDIT_SUM_OVERDUE",
+        agg_func="max",
+        feature_name="MAXIMUM_OVERDUE_AMOUNT"
+        )
+
+        features = self.merge_feature(
+            features,
+            maximum_overdue
+        )
+
+
+        features["OVERDUE_RATIO"] = (
+        features["TOTAL_OVERDUE_AMOUNT"]/ features["TOTAL_OUTSTANDING_DEBT"]
+        ).replace(
+            [np.inf, -np.inf],
+            0
+        ).fillna(0)
+
         
         return features
