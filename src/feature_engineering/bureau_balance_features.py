@@ -37,7 +37,7 @@ class BureauBalanceFeatureEngineer(BaseFeatureEngineer):
         features = self.merge_feature(
             features,
             on_time_months,
-            key=KEY
+            key=self.KEY
         )
 
         features["ON_TIME_MONTHS"] = (
@@ -60,7 +60,7 @@ class BureauBalanceFeatureEngineer(BaseFeatureEngineer):
         features = self.merge_feature(
             features,
             delinquent_months,
-            key=KEY
+            key=self.KEY
         )
 
         features["DELINQUENT_MONTHS"] = (
@@ -85,7 +85,7 @@ class BureauBalanceFeatureEngineer(BaseFeatureEngineer):
         features = self.merge_feature(
             features,
             worst_delinquency,
-            key=KEY
+            key=self.KEY
         )
 
         features["WORST_DELINQUENCY_LEVEL"] = (
@@ -105,7 +105,7 @@ class BureauBalanceFeatureEngineer(BaseFeatureEngineer):
         features = self.merge_feature(
             features,
             closed_months,
-            key=KEY
+            key=self.KEY
         )
 
         features["CLOSED_MONTHS"] = (
