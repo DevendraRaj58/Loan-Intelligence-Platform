@@ -24,7 +24,7 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD",
             "sum",
-            "TOTAL_DPD"
+            "POS_TOTAL_DPD"
         )
 
         average_dpd = Aggregation.aggregate(
@@ -32,7 +32,7 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD",
             "mean",
-            "AVERAGE_DPD"
+            "POS_AVERAGE_DPD"
         )
 
         maximum_dpd = Aggregation.aggregate(
@@ -40,7 +40,7 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD",
             "max",
-            "MAXIMUM_DPD"
+            "POS_MAXIMUM_DPD"
         )
 
         total_default_dpd = Aggregation.aggregate(
@@ -48,7 +48,7 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD_DEF",
             "sum",
-            "TOTAL_DEFAULT_DPD"
+            "POS_TOTAL_DEFAULT_DPD"
         )
 
         average_default_dpd = Aggregation.aggregate(
@@ -56,7 +56,7 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD_DEF",
             "mean",
-            "AVERAGE_DEFAULT_DPD"
+            "POS_AVERAGE_DEFAULT_DPD"
         )
 
         maximum_default_dpd = Aggregation.aggregate(
@@ -64,7 +64,7 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD_DEF",
             "max",
-            "MAXIMUM_DEFAULT_DPD"
+            "POS_MAXIMUM_DEFAULT_DPD"
         )
 
         average_installments = Aggregation.aggregate(
@@ -72,7 +72,7 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "CNT_INSTALMENT",
             "mean",
-            "AVERAGE_INSTALLMENTS"
+            "POS_AVERAGE_INSTALLMENTS"
         )
 
         maximum_installments = Aggregation.aggregate(
@@ -80,7 +80,7 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "CNT_INSTALMENT",
             "max",
-            "MAXIMUM_INSTALLMENTS"
+            "POS_MAXIMUM_INSTALLMENTS"
         )
 
         average_future_installments = Aggregation.aggregate(
@@ -116,17 +116,17 @@ class POSCashBalanceFeatureEngineer(BaseFeatureEngineer):
 
         features["REMAINING_INSTALLMENT_RATIO"] = (
             features["AVERAGE_FUTURE_INSTALLMENTS"] /
-            features["AVERAGE_INSTALLMENTS"]
+            features["POS_AVERAGE_INSTALLMENTS"]
         ).replace([np.inf, -np.inf], 0).fillna(0)
 
         features["DEFAULT_RATIO"] = (
-            features["TOTAL_DEFAULT_DPD"] /
-            features["TOTAL_DPD"]
+            features["POS_TOTAL_DEFAULT_DPD"] /
+            features["POS_TOTAL_DPD"]
         ).replace([np.inf, -np.inf], 0).fillna(0)
 
         features["DPD_PER_INSTALLMENT"] = (
-            features["AVERAGE_DPD"] /
-            features["AVERAGE_INSTALLMENTS"]
+            features["POS_AVERAGE_DPD"] /
+            features["POS_AVERAGE_INSTALLMENTS"]
         ).replace([np.inf, -np.inf], 0).fillna(0)
 
 

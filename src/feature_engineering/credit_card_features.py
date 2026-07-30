@@ -250,7 +250,7 @@ class CreditCardFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD",
             "sum",
-            "TOTAL_DPD"
+            "CC_TOTAL_DPD"
         )
 
         average_dpd = Aggregation.aggregate(
@@ -258,7 +258,7 @@ class CreditCardFeatureEngineer(BaseFeatureEngineer):
         "SK_ID_CURR",
         "SK_DPD",
         "mean",
-        "AVERAGE_DPD"
+        "CC_AVERAGE_DPD"
         )
 
         maximum_dpd = Aggregation.aggregate(
@@ -266,7 +266,7 @@ class CreditCardFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD",
             "max",
-            "MAXIMUM_DPD"
+            "CC_MAXIMUM_DPD"
         )
 
         total_default_dpd = Aggregation.aggregate(
@@ -274,7 +274,7 @@ class CreditCardFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD_DEF",
             "sum",
-            "TOTAL_DEFAULT_DPD"
+            "CC_TOTAL_DEFAULT_DPD"
         )
 
         average_default_dpd = Aggregation.aggregate(
@@ -282,7 +282,7 @@ class CreditCardFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD_DEF",
             "mean",
-            "AVERAGE_DEFAULT_DPD"
+            "CC_AVERAGE_DEFAULT_DPD"
         )
 
         maximum_default_dpd = Aggregation.aggregate(
@@ -290,7 +290,7 @@ class CreditCardFeatureEngineer(BaseFeatureEngineer):
             "SK_ID_CURR",
             "SK_DPD_DEF",
             "max",
-            "MAXIMUM_DEFAULT_DPD"
+            "CC_MAXIMUM_DEFAULT_DPD"
         )
 
 
