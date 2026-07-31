@@ -8,12 +8,31 @@ data:
   interim_path: data/interim
   processed_path: data/processed
   feature_store_path: data/feature_store
+
+  train_file: application_train.csv
+  test_file: application_test.csv
+
   test_size: 0.20
   random_state: 42
 
+preprocessing:
+  missing_numeric: median
+  missing_categorical: most_frequent
+  drop_identifier_columns: true
+  identifier_columns:
+    - SK_ID_CURR
+  encoding: label
+
+feature_selection:
+  correlation_threshold: 0.95
+  
 models:
   save_dir: models
   default_model: logistic_regression
+
+training:
+  target_column: TARGET
+  cross_validation_folds: 5
 
 reports:
   figures_dir: reports/figures
