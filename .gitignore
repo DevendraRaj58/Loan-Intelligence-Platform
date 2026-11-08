@@ -48,3 +48,6 @@ dist/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# CatBoost generated training logs
+catboost_info/
