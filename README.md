@@ -12,6 +12,10 @@ An end-to-end AI-powered Loan Decision Intelligence Platform designed to support
 - Built a modular model training and evaluation pipeline.
 - Trained and benchmarked five classification algorithms: Logistic Regression, Random Forest, XGBoost, LightGBM, and CatBoost.
 - Identified LightGBM as the current leading model, with a validation ROC-AUC of 0.7839 and PR-AUC of 0.2832.
+- Implemented sigmoid probability calibration.
+- Developed calibrated loan risk scoring.
+- Implemented configurable three-tier risk categorization.
+- Validated risk-band separation using observed default rates.
 
 ## Minding the below implementations......
 
